@@ -17,7 +17,7 @@ public class Model {
     
     
     public ArrayList<String> getFiles() {
-        return  files;
+        return files;
     }
 
     public void setFiles(ArrayList<String> files) {

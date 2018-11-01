@@ -5,8 +5,8 @@ package edu.udesc.procura.search;
  * @author udesc
  */
 public abstract class AbstractSearchStrategy implements ISearchStrategy {
-    private String word;
-    private StringBuffer text;
+    protected String word;
+    protected StringBuffer text;
 
     @Override
     public String getWord() {
@@ -24,6 +24,4 @@ public abstract class AbstractSearchStrategy implements ISearchStrategy {
     public void setText(StringBuffer text) {
         this.text = text;
     }
-    
-    
 }

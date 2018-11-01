@@ -5,6 +5,8 @@
  */
 package edu.udesc.procura.search;
 
+import edu.udesc.procura.view.MainView;
+
 /**
  *
  * @author udesc
@@ -18,7 +20,25 @@ public class NaiveSearch extends AbstractSearchStrategy{
     
     @Override
     public WordLocation search() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int textLength = this.getText().length();
+        int wordLength = this.getWord().length();
+        
+        for(int i = 0; i < textLength - wordLength; i++){
+            
+            int j;
+            
+            for(j = 0; j < wordLength; j++){
+                if(this.getText().charAt(i + j) != this.getWord().charAt(j)){
+                    break;
+                }
+            }
+            
+            if(j == wordLength){
+                int index = i;
+            }
+        }
+        
+        return null;        
     }
     
 }
