@@ -11,14 +11,13 @@ import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.ListModel;
-import javax.swing.event.ListDataListener;
 
 /**
  *
  * @author udesc
  */
 public class MainView extends javax.swing.JFrame implements IMainView{
-    private MainController controller;
+    private final MainController controller;
     
     
     /**
@@ -56,12 +55,18 @@ public class MainView extends javax.swing.JFrame implements IMainView{
         setTitle("Pesquisa de String");
 
         btnAddFile.setText("Incluir Arquivo");
+        btnAddFile.setEnabled(false);
         btnAddFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddFileActionPerformed(evt);
             }
         });
 
+        listFiles.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "C:\\dev\\procura\\pom.xml" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
         scrollFilesPanesl.setViewportView(listFiles);
 
         labelFiles.setText("Arquivos usados para procura");
@@ -161,10 +166,9 @@ public class MainView extends javax.swing.JFrame implements IMainView{
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fc.getSelectedFile();
             controller.addFile(file.getAbsoluteFile());
-            ArrayList lista =  new ArrayList();
-            lista.add(file.toString());
-            listFiles.setModel(model);
-            
+            DefaultListModel lstModel = (DefaultListModel) listFiles.getModel();
+            listFiles.setModel(lstModel); 
+            lstModel.addElement(file.getAbsoluteFile()); 
         }
         
     }//GEN-LAST:event_btnAddFileActionPerformed
@@ -232,8 +236,13 @@ public class MainView extends javax.swing.JFrame implements IMainView{
      * @return 
      */
     @Override
-    public List<String> getListFiles() {
-        return listFiles.getSelectedValuesList();
+    public ArrayList<String> getListFiles() {
+        ArrayList<String> values = new ArrayList<>();
+        int[] selectedIndices = listFiles.getSelectedIndices();
+        for (int i = 0; i < selectedIndices.length; i++) {
+               values.add(String.valueOf(listFiles.getModel().getElementAt(selectedIndices[i])));
+        }
+        return values;
     }
 
     /**

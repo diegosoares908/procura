@@ -5,14 +5,14 @@
  */
 package edu.udesc.procura.view;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  *
  * @author udesc
  */
 public interface IMainView {
-   public List<String> getListFiles();
+   public ArrayList<String> getListFiles();
    public void setTextResultValue(String values);
    public String getTextResultValue();
    public String getTextWordToFind();

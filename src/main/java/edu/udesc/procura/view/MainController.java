@@ -33,6 +33,9 @@ public class MainController {
         return new StringBuffer();
     }
 
+    public Model getModel() {
+        return model;
+    }
     private void execute(String file) {
         LOG.fine("Iniciando a procura");
         StringBuffer buffer = this.getFileContent(file);

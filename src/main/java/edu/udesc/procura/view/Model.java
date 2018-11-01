@@ -1,6 +1,7 @@
 package edu.udesc.procura.view;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,16 +11,16 @@ import java.util.List;
  */
 public class Model {
 
-    private List<String> files = new LinkedList<>();
+    private ArrayList<String> files = new ArrayList<>();
     private String resultValues;
     private String wordToFind;
     
     
-    public List<String> getFiles() {
-        return files;
+    public ArrayList<String> getFiles() {
+        return  files;
     }
 
-    public void setFiles(List<String> files) {
+    public void setFiles(ArrayList<String> files) {
         this.files = files;
     }
 
