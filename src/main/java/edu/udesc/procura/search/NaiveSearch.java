@@ -22,6 +22,7 @@ public class NaiveSearch extends AbstractSearchStrategy{
     public WordLocation search() {
         int textLength = this.getText().length();
         int wordLength = this.getWord().length();
+        WordLocation wordLocation = new WordLocation();
         
         for(int i = 0; i < textLength - wordLength; i++){
             
@@ -35,10 +36,11 @@ public class NaiveSearch extends AbstractSearchStrategy{
             
             if(j == wordLength){
                 int index = i;
+                wordLocation.setColumn(index);
             }
         }
         
-        return null;        
+        return wordLocation;        
     }
     
 }

@@ -63,7 +63,7 @@ public class MainView extends javax.swing.JFrame implements IMainView{
         });
 
         listFiles.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "C:\\dev\\procura\\pom.xml" };
+            String[] strings = { "E:\\StringSearch\\pi.txt" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });

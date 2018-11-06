@@ -26,7 +26,7 @@ public class WordLocation {
     }
     
     public boolean found() {
-        return line != -1 && column != -1;
+        return line != -1 || column != -1;
     }
 
 }
