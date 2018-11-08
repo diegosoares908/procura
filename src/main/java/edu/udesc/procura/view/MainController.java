@@ -58,38 +58,52 @@ public class MainController {
         return model;
     }
     
-    private static void showLog(String msg) {
-        // LOG.fine(msg);
+     private void showLog(String msg) {
+         this.showLog(msg,false);
+     }
+
+    private Date showLog(String msg, boolean showOnScreen) {
         Date date = GregorianCalendar.getInstance().getTime();
-        System.out.println("[ " + date +  " ]" +  msg);
+        String formatedMessage = "[ " + date +  " ]" +  msg;
+        System.out.println(formatedMessage);
+        if( showOnScreen ) {
+            view.setTextResultValue("[ " + date +  " ] " +  msg);
+        }
+        return date;
      }
     
     private void execute(String file) {
        showLog("Iniciando a procura");
         StringBuffer buffer = this.getFileContent(file);
-        view.setTextResultValue(buffer.toString());
+        //view.setTextResultValue(buffer.toString());
         prepareSearch(buffer);
         searchFile();
         
        showLog("Finalizando a procura");
     }
+    
+    private void showInterval(String algoritmo,Date dataInicial,Date dataFinal) {
+        long duracao = (dataFinal.getTime() - dataInicial.getTime());
+        view.setTextResultValue("[ " + duracao +   " ] ");
+        
+    }
 
     private void searchFile() {
         for (ISearchStrategy strategy : search) {
-           showLog("Inicio da procura por " + strategy.getStrategyName());
-            
+           Date inicio = showLog("[ " + strategy.getStrategyName() + " ], inicio",true);
+           // strategy.prepareSearch();
            WordLocation location =  strategy.search();
-           showLog("Fim da procura por " + strategy.getStrategyName());
            if( location.found() ) {
-               showLog("--> Encontrado [ " + location.getColumn() + " ]");
-               // TODO
-               // setar no model o algoritmo executado
+               showLog("[ " + strategy.getStrategyName() + "]," +location.getColumn(),true );
                this.updateModel();
                this.refreshView();
                
            } else {
                showLog("--> Não encontrou!!!");
            }
+           Date fim = showLog("[ " + strategy.getStrategyName() + " ], fim",true);
+           showInterval(strategy.getStrategyName(), inicio,fim);
+
         }
     }
 
@@ -109,7 +123,7 @@ public class MainController {
         this.updateModel();
         
         List<String> files = model.getFiles();
-       showLog("Iniciando a leitura da lista de arquivos");
+        showLog("Iniciando a leitura da lista de arquivos");
         for (String file : files) {
             execute(file);
         }
